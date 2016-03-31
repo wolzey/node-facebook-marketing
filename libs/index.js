@@ -13,8 +13,14 @@ var FB = function(options) {
 }
 
 FB.prototype.api = function(path, access_token, fields, cb) {
+  var insightFields = "";
+
+  if(fields !== null) {
+    insightFields = fields.join(",");
+  }
+
   var options = {
-    url : BASE + path + "?fields=" + fields.join(","),
+    url : BASE + path + insightFields,
     headers : {
       "Authorization" : "OAuth " + access_token
     },
