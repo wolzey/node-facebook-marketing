@@ -1,18 +1,23 @@
 var request = require('request');
+var EventEmitter = require('events').EventEmitter;
+var util         = require('util');
 
 const BASE = "https://graph.facebook.com/v2.5";
 
 var FB = function(options) {
-  function init() {
-    if(!options['app_id'] || !options['app_secret']) {
-      throw "app_id or app_secret was not set";
-    }
+  EventEmitter.call(this);
+  if(!options['access_token']) {
+    console.error("access_token must be set");
   }
 
-  init();
+  this.access_token = options['access_token'];
 }
 
+util.inherits(FB, EventEmitter);
+
 FB.prototype.api = function(path, access_token, fields, cb) {
+  var self = this;
+
   var insightFields = "";
 
   if(fields !== null) {
@@ -22,12 +27,20 @@ FB.prototype.api = function(path, access_token, fields, cb) {
   var options = {
     url : BASE + path + insightFields,
     headers : {
-      "Authorization" : "OAuth " + access_token
+      "Authorization" : "OAuth " + self.access_token
     },
     method : "GET"
   }
+  if(cb) {
+    return request(options, cb);
+  }
+  request(options, function(err, response, body) {
+    if(err) {
+      return self.emit('fb:error', err);
+    }
 
-  return request(options, cb);
+    return self.emit("fb:response", response);
+  });
 }
 
 module.exports = FB;
