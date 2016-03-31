@@ -12,7 +12,7 @@ var FB = function(options) {
   init();
 }
 
-FB.prototype.api(path, access_token, fields, cb) {
+FB.prototype.api = function(path, access_token, fields, cb) {
   var options = {
     url : BASE + path + "?fields=" + fields.join(","),
     headers : {
