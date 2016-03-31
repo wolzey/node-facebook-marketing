@@ -1,0 +1,25 @@
+{
+  "name": "node-facebook-marketing",
+  "version": "1.0.0",
+  "description": "Connection to Facebook's Marketing API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolzethan/node-facebook-marketing.git"
+  },
+  "keywords": [
+    "facebook",
+    "marketing",
+    "api",
+    "node"
+  ],
+  "author": "Ethan Wolz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wolzethan/node-facebook-marketing/issues"
+  },
+  "homepage": "https://github.com/wolzethan/node-facebook-marketing#readme"
+}
