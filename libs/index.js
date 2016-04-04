@@ -17,6 +17,7 @@ util.inherits(FB, EventEmitter);
 
 //Return Ad Accounts from User_id
 FB.prototype.getAdAccounts = function(cb) {
+  if(!this.userId) return cb("No USERID set");
   return makeFbRequest('/' + this.userId + '/adaccounts', null, cb);
 }
 
