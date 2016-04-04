@@ -6,15 +6,10 @@ var _            = require('lodash');
 const BASE = "https://graph.facebook.com/v2.5";
 var OAuth;
 var fbSelf;
-var FB = function(options) {
-  this.options = options;
-  EventEmitter.call(this);
-  if(!options['access_token']) {
-    console.error("access_token must be set");
-  }
-  fbSelf = this;
-  this.access_token = options['access_token'];
-  OAuth = options['access_token'];
+var FB = function() {
+  this.access_token;
+  this.client_id;
+  this.app_id;
 }
 
 util.inherits(FB, EventEmitter);
@@ -94,8 +89,8 @@ function makeFbRequest(path, fields, cb) {
 FB.prototype.setLongAccessToken = function(cb) {
   if(_.has(fbSelf, 'access_token')) {
     var requestURL = BASE + '/oauth/access_token?grant_type=fb_exchange_token&'+
-        'client_id='+fbSelf.options.app_id+'&client_secret='+fbSelf.options.client_secret+
-        '&fb_exchange_token='+fbSelf.access_token + '&redirect_uri=' +fbSelf.options.redirect_uri;
+        'client_id='+fbSelf.app_id+'&client_secret='+fbSelf.client_secret+
+        '&fb_exchange_token='+fbSelf.access_token + '&redirect_uri=' +fbSelf.redirect_uri;
 
         request(requestURL, function(err, response, body) {
           if(err) {
@@ -105,7 +100,6 @@ FB.prototype.setLongAccessToken = function(cb) {
           var jsonResponse = JSON.parse(response.body);
 
           if(jsonResponse.access_token) {
-            console.log(jsonResponse['access_token']);
             fbSelf.access_token = jsonResponse.accesss_token;
             return cb(true, jsonResponse);
           } else {
@@ -117,4 +111,4 @@ FB.prototype.setLongAccessToken = function(cb) {
   }
 }
 
-module.exports = FB;
+module.exports = new FB();
