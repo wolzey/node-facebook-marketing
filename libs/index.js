@@ -10,6 +10,7 @@ var FB = function() {
   this.access_token;
   this.client_id;
   this.app_id;
+  fbSelf = this;
 }
 
 util.inherits(FB, EventEmitter);
@@ -99,7 +100,7 @@ FB.prototype.setLongAccessToken = function(cb) {
 
           var jsonResponse = JSON.parse(response.body);
 
-          if(jsonResponse.access_token) {
+          if(jsonResponse) {
             fbSelf.access_token = jsonResponse.accesss_token;
             return cb(true, jsonResponse);
           } else {
