@@ -101,9 +101,11 @@ FB.prototype.setLongAccessToken = function(cb) {
           if(err) {
             return false;
           }
-          if(_.has(response, 'body.access_token')) {
-            this.access_token = response.body.access_token;
-            return cb(true, response.body);
+
+          var jsonResponse = JSON.parse(response.body);
+
+          if(_.has(jsonResponse, 'access_token')) {
+            return cb(true, jsonResponse);
           }
           return cb(false);
         });
