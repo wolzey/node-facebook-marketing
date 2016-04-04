@@ -25,7 +25,7 @@ FB.prototype.getToken = function() {
   return this.access_token;
 }
 
-FB.setUser = function(user_id) {
+FB.prototype.setUser = function(user_id) {
   this.userId = user_id;
 }
 
