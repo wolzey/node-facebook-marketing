@@ -1,6 +1,6 @@
 {
   "name": "node-facebook-marketing",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Connection to Facebook's Marketing API",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/wolzethan/node-facebook-marketing#readme",
   "dependencies": {
+    "lodash": "^4.8.1",
     "request": "^2.69.0"
   }
 }
