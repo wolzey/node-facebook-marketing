@@ -106,13 +106,13 @@ FB.prototype.setLongAccessToken = function(cb) {
 
           if(_.has(jsonResponse, 'access_token')) {
             console.log(jsonResponse['access_token']);
-            this.access_token = jsonResponse.accesss_token;
+            fbSelf.access_token = jsonResponse.accesss_token;
             return cb(true, jsonResponse);
           }
           return cb(false);
         });
   }
   return cb(false);
-}
+}.bind(FB);
 
 module.exports = FB;
