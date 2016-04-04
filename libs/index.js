@@ -1,11 +1,13 @@
 var request = require('request');
 var EventEmitter = require('events').EventEmitter;
 var util         = require('util');
+var _            = require('lodash');
 
 const BASE = "https://graph.facebook.com/v2.5";
 var OAuth;
 var fbSelf;
 var FB = function(options) {
+  this.options = options;
   EventEmitter.call(this);
   if(!options['access_token']) {
     console.error("access_token must be set");
@@ -32,8 +34,8 @@ FB.setUser = function(user_id) {
 }
 
 FB.prototype.setToken = function(token) {
-  OAuth = token;
-  return this.access_token = token;
+  this.access_token = token;
+  return this;
 }
 
 // Allow user to get USERID
@@ -87,6 +89,23 @@ function makeFbRequest(path, fields, cb) {
 
     return fbSelf.emit("fb:response", response);
   });
+}
+
+FB.prototype.setLongAccessToken = function(cb) {
+  if(_.has(this, 'access_token')) {
+    var requestURL = BASE + '/oauth/access_token?grant_type=fb_exchange_token'+
+        'client_id='+this.options.app_id+'&client_secret='+this.options.client_secret+
+        'fb_exchange_token='+this.access_token;
+
+        return request(requestURL, function(err, response, body) {
+          if(err) {
+            return false;
+          }
+
+          console.log(response.body);
+        });
+  }
+  return false;
 }
 
 module.exports = FB;
