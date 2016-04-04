@@ -92,11 +92,10 @@ function makeFbRequest(path, fields, cb) {
 }
 
 FB.prototype.setLongAccessToken = function(cb) {
-  if(_.has(this, 'access_token')) {
-    console.log("HELLO");
+  if(_.has(fbSelf, 'access_token')) {
     var requestURL = BASE + '/oauth/access_token?grant_type=fb_exchange_token&'+
-        'client_id='+this.options.app_id+'&client_secret='+this.options.client_secret+
-        '&fb_exchange_token='+this.access_token + '&redirect_uri=' +this.options.redirect_uri;
+        'client_id='+fbSelf.options.app_id+'&client_secret='+fbSelf.options.client_secret+
+        '&fb_exchange_token='+fbSelf.access_token + '&redirect_uri=' +fbSelf.options.redirect_uri;
 
         request(requestURL, function(err, response, body) {
           if(err) {
@@ -104,17 +103,18 @@ FB.prototype.setLongAccessToken = function(cb) {
           }
 
           var jsonResponse = JSON.parse(response.body);
-
+          
           if(_.has(jsonResponse, 'access_token')) {
             console.log(jsonResponse['access_token']);
             fbSelf.access_token = jsonResponse.accesss_token;
             return cb(true, jsonResponse);
+          } else {
+            console.log("NO ACCESS TOKEN");
           }
-          return cb(false);
         });
+  } else {
+    console.log("NO ACCESS TOKEN");
   }
-  console.log("NOPE");
-  return cb(false);
 }
 
 module.exports = FB;
