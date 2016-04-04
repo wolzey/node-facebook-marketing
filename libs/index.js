@@ -93,6 +93,7 @@ function makeFbRequest(path, fields, cb) {
 
 FB.prototype.setLongAccessToken = function(cb) {
   if(_.has(this, 'access_token')) {
+    console.log("HELLO");
     var requestURL = BASE + '/oauth/access_token?grant_type=fb_exchange_token&'+
         'client_id='+this.options.app_id+'&client_secret='+this.options.client_secret+
         '&fb_exchange_token='+this.access_token + '&redirect_uri=' +this.options.redirect_uri;
@@ -112,7 +113,8 @@ FB.prototype.setLongAccessToken = function(cb) {
           return cb(false);
         });
   }
+  console.log("NOPE");
   return cb(false);
-}.bind(FB);
+}
 
 module.exports = FB;
