@@ -97,15 +97,18 @@ FB.prototype.setLongAccessToken = function(cb) {
         'client_id='+this.options.app_id+'&client_secret='+this.options.client_secret+
         '&fb_exchange_token='+this.access_token + '&redirect_uri=' +this.options.redirect_uri;
 
-        return request(requestURL, function(err, response, body) {
+        request(requestURL, function(err, response, body) {
           if(err) {
             return false;
           }
-
-          console.log(response.body);
+          if(_.has(response, 'body.access_token')) {
+            this.access_token = response.body.access_token;
+            return cb(true, response.body);
+          }
+          return cb(false);
         });
   }
-  return false;
+  return cb(false);
 }
 
 module.exports = FB;
