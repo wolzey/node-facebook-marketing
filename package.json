@@ -1,6 +1,6 @@
 {
   "name": "node-facebook-marketing",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Connection to Facebook's Marketing API",
   "main": "index.js",
   "scripts": {

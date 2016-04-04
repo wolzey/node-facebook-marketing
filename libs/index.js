@@ -73,7 +73,7 @@ function makeFbRequest(path, fields, cb) {
   var options = {
     url : BASE + path + insightFields,
     headers : {
-      "Authorization" : "OAuth " + OAuth
+      "Authorization" : "OAuth " + fbSelf.access_token
     },
     method : "GET"
   }
@@ -103,8 +103,8 @@ FB.prototype.setLongAccessToken = function(cb) {
           }
 
           var jsonResponse = JSON.parse(response.body);
-          
-          if(_.has(jsonResponse, 'access_token')) {
+
+          if(jsonResponse.access_token) {
             console.log(jsonResponse['access_token']);
             fbSelf.access_token = jsonResponse.accesss_token;
             return cb(true, jsonResponse);
