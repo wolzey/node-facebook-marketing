@@ -16,9 +16,8 @@ var FB = function() {
 util.inherits(FB, EventEmitter);
 
 //Return Ad Accounts from User_id
-FB.prototype.getAdAccounts = function(user_id, cb) {
-  console.log(user_id);
-  return makeFbRequest('/' + user_id + '/adaccounts', null, cb);
+FB.prototype.getAdAccounts = function(cb) {
+  return makeFbRequest('/' + this.userId + '/adaccounts', null, cb);
 }
 
 FB.prototype.getToken = function() {
