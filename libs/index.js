@@ -105,6 +105,7 @@ FB.prototype.setLongAccessToken = function(cb) {
           var jsonResponse = JSON.parse(response.body);
 
           if(_.has(jsonResponse, 'access_token')) {
+            console.log(jsonResponse['access_token']);
             this.access_token = jsonResponse.accesss_token;
             return cb(true, jsonResponse);
           }
