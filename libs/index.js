@@ -44,7 +44,7 @@ FB.prototype.getCampaigns = function(act_id, cb) {
 }
 
 FB.prototype.getAdsets = function(camp_id, cb) {
-  return makeFbRequest("/" +act_id+ "/adsets", null, cb);
+  return makeFbRequest("/" +camp_id+ "/adsets", null, cb);
 }
 
 FB.prototype.getAds = function(adset_id, cb) {
