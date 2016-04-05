@@ -56,7 +56,7 @@ FB.prototype.getAccountInsights = function(act_id, fields, cb) {
 }
 
 FB.prototype.getInsights = function(id, fields, cb) {
-  return makeFBRequest("/" +id+ "/insights", fields, cb);
+  return makeFbRequest("/" +id+ "/insights", fields, cb);
 }
 
 //Simplify Request process to Facebook API
